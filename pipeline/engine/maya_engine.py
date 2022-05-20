@@ -21,5 +21,17 @@ class MayaEngine(Engine):
         cmds.file(path, reference=True)
 
     def alembic_export(self, start, end, root, save_name):
-        command = f'-frameRange {start} {end} -uvWrite -worldSpace {root} -file {save_name}'
+        print("START")
+        print(start)
+        print("END")
+        print(end)
+        print("ROOT")
+        print(root)
+        update_save = save_name + '.abc'
+        ultimate_save_name = root / update_save
+        print("FILE_NAME")
+        print(ultimate_save_name)
+
+        # command = f'-frameRange {start} {end} -uvWrite -worldSpace {root} -file {ultimate_save_name}'
+        command = f'-frameRange {start} {end} -uvWrite -worldSpace -root pCube1 -file {ultimate_save_name}'
         cmds.AbcExport(j=command)
