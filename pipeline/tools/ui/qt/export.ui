@@ -93,7 +93,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>130</y>
+      <y>90</y>
       <width>71</width>
       <height>16</height>
      </rect>
@@ -106,7 +106,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>130</y>
+      <y>90</y>
       <width>211</width>
       <height>20</height>
      </rect>
@@ -116,10 +116,13 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>130</y>
+      <y>90</y>
       <width>111</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the root folder where the export will be stored.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>Choose Root Folder</string>
@@ -129,7 +132,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>90</y>
+      <y>130</y>
       <width>71</width>
       <height>16</height>
      </rect>
@@ -142,10 +145,26 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>90</y>
+      <y>130</y>
       <width>211</width>
       <height>20</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="update_obj_name_btn">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>130</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Updates the object name field, which will be used as the root of the export, with the latest selected object, if multiple objects are selected in the scene only the latest selected object is put.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Update Object Name</string>
     </property>
    </widget>
   </widget>

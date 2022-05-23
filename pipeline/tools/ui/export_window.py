@@ -25,12 +25,13 @@ class ToolWindow(QMainWindow):
         self.file_choice_button.clicked.connect(self.choose_file)
         self.export_button.clicked.connect(self.export_to_alembic)
         self.frame_range_start.valueChanged.connect(self.update_max_fr_value)
+        self.update_obj_name_btn.clicked.connect(self.update_object_name)
 
     def export_to_alembic(self):
-        path = Path(self.root_input.text())
         self.export_button.clicked.connect(
             self.handler.alembic_export(self.frame_range_start.value(), self.frame_range_end.value(),
-                                        path, self.file_name_input.text()))
+                                        self.root_input.text(), self.file_name_input.text(),
+                                        self.object_name_input.text()))
 
     def choose_file(self):
         file_name = QFileDialog.getExistingDirectory(self, "QFileDialog.GetExistingDirectory()", "C://",
@@ -40,6 +41,11 @@ class ToolWindow(QMainWindow):
 
     def update_max_fr_value(self):
         self.frame_range_end.setValue(self.frame_range_start.value())
+
+    def update_object_name(self):
+        if self.handler.get_selection():
+            self.object_name_input.setText(', '.join(self.handler.get_selection()))
+            # self.object_name_input.setText(str(self.handler.get_selection()).strip('[]').strip('\\''\\'))
 
 
 def launch_tool():

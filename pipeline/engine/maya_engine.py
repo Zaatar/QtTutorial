@@ -1,4 +1,10 @@
 from pipeline.engine.engine import Engine
+import six
+
+if six.PY2:
+    from pathlib2 import Path
+else:
+    from pathlib import Path
 
 try:
     import maya.cmds as cmds
@@ -20,18 +26,18 @@ class MayaEngine(Engine):
     def reference(self, path):
         cmds.file(path, reference=True)
 
-    def alembic_export(self, start, end, root, save_name):
-        print("START")
-        print(start)
-        print("END")
-        print(end)
-        print("ROOT")
-        print(root)
-        update_save = save_name + '.abc'
-        ultimate_save_name = root / update_save
-        print("FILE_NAME")
-        print(ultimate_save_name)
-
-        # command = f'-frameRange {start} {end} -uvWrite -worldSpace {root} -file {ultimate_save_name}'
-        command = f'-frameRange {start} {end} -uvWrite -worldSpace -root pCube1 -file {ultimate_save_name}'
+    def alembic_export(self, start, end, root, save_name, scene_obj_name):
+        final_save = self.export_path_generator(root, save_name, '.abc')
+        command = f'-frameRange {start} {end} -uvWrite -worldSpace -root {scene_obj_name} -file {final_save}'
         cmds.AbcExport(j=command)
+
+    def get_selection(self):
+        selected_objs = cmds.ls(selection=True, tail=1)
+        return selected_objs
+
+    def export_path_generator(self, root, save_name, extension):
+        path = Path(root)
+        name_ext_combination = save_name + extension
+        return path / name_ext_combination
+
+
