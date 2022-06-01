@@ -17,7 +17,7 @@ asset_data = reg.get_asset_by_object_path(
 asset_data = reg.get_asset_by_object_path(object_path=obj_path)
 print(asset_data)
 
-
+'''
 filt = unreal.ARFilter(
     package_paths=["/Game/StarterContent/Textures"],
     class_names=["Texture2D"],
@@ -31,3 +31,5 @@ assets = reg.get_assets(filt)
 # "Found " + str(len(assets)) + " assets"
 text = f"Found {len(assets)} assets"
 unreal.log(text)
+'''
+

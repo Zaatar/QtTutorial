@@ -8,6 +8,9 @@ def choose_handler():
     elif 'houdini' in sys.executable:
         from pipeline.engine.houdini_engine import HoudiniEngine
         return HoudiniEngine()
+    elif 'UnrealEngine' in sys.executable:
+        from pipeline.engine.unreal_engine import UnrealEngine
+        return UnrealEngine()
     else:
         return None
     # elif 'Unreal' in sys.executable:
