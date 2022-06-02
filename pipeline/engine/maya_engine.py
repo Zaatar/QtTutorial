@@ -40,4 +40,10 @@ class MayaEngine(Engine):
         name_ext_combination = save_name + extension
         return path / name_ext_combination
 
-
+    # Just to test window
+    def import_asset_ue(self, import_file_name, destination_path, dcc_save_name, save_after_every_import,
+                        replace_existing):
+        print_statement = f'The file import name is {import_file_name}, the destination path is ' \
+                          f'{destination_path}, the dcc save name is {dcc_save_name}, it saves after every ' \
+                          f'import {save_after_every_import} and it replaces existing {replace_existing}'
+        print(print_statement)
