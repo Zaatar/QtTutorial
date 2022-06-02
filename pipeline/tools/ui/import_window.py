@@ -28,6 +28,7 @@ class ToolWindow(QMainWindow):
         self.btn_import_alembic.clicked.connect(self.import_asset_ue)
 
     def import_asset_ue(self):
+        print(f'In Import Asset UE in Import_Window.py')
         self.handler.import_asset_ue(self.line_import_directory_display.text(),
                                      self.line_destination_path_display.text(), self.line_dcc_file_name.text(),
                                      self.check_save_after_every_import.isChecked(),
@@ -54,3 +55,14 @@ def import_launch_tool():
     window = ToolWindow()
     window.show()
     app.exec_()
+
+
+def main():
+    app = QtWidgets.QApplication.instance() or QtWidgets.QApplication([])
+    window = ToolWindow()
+    window.show()
+    app.exec_()
+
+
+if __name__ == "__main__":
+    main()

@@ -11,23 +11,29 @@ SAVE_FREQUENCY = 5
 ASSET_TOOLS = unreal.AssetToolsHelpers.get_asset_tools()
 
 
-def fill_paths_to_import(input_directory, paths_to_import_output):
-    for file_path_abs in input_directory:
-        if file_path_abs.suffix not in VALID_EXTENSIONS:
-            continue
-        paths_to_import_output.append(file_path_abs)
-
-
 class UnrealEngine(Engine):
     def __init__(self):
         self.implements = ['Import Alembic']
 
+    def fill_paths_to_import(self, input_directory, paths_to_import_output):
+        for file_path_abs in input_directory:
+            if file_path_abs.suffix not in VALID_EXTENSIONS:
+                continue
+            paths_to_import_output.append(file_path_abs)
+
     def import_asset_ue(self, import_files_directory, destination_path, dcc_save_name, save_after_every_import,
                         replace_existing):
+        print(f'In Import Asset UE in Unreal Engine')
         # Prepare list of paths for import into DCC
         paths_to_import = list()
         import_directory_path = Path(import_files_directory)
-        fill_paths_to_import(self, import_directory_path, paths_to_import)
+        # self.fill_paths_to_import(import_directory_path, paths_to_import)
+        # self.fill_paths_to_import(self, import_directory_path, paths_to_import)
+
+        for file_path_abs in import_directory_path.iterdir():
+            if file_path_abs.suffix not in VALID_EXTENSIONS:
+                continue
+            paths_to_import.append(file_path_abs)
 
         # Prepare save counter which will be reset on every save and counter to be added to import name
         save_counter = 0
@@ -39,7 +45,7 @@ class UnrealEngine(Engine):
                     break
                 slow_task.enter_progress_frame(1)
 
-                file_name_parts = file_path_abs.split("_")
+                file_name_parts = file_path_abs.stem.split("_")
                 file_name_start = file_name_parts[1]
                 only_letters = [ch for ch in file_name_start if ch.isalpha()]
                 tex_category = "".join(only_letters)
@@ -47,7 +53,7 @@ class UnrealEngine(Engine):
 
                 task = unreal.AssetImportTask()
                 task.automated = True
-                task.filename = dcc_save_name
+                task.filename = str(file_path_abs)
                 task.destination_path = f'{destination_path}/{tex_category}'
                 task.destination_name = tex_category + str(name_counter)
                 task.replace_existing = replace_existing
