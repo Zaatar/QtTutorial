@@ -21,9 +21,10 @@ class ToolWindow(QMainWindow):
         QtCompat.loadUi(str(ui_path), self)
         self.handle_inputs()
         self.handler = handler.choose_handler()
+        self.line_destination_path_display.setText('/Game/')
 
     def handle_inputs(self):
-        self.btn_choose_file.clicked.connect(self.choose_file)
+        self.btn_choose_file.clicked.connect(self.choose_import_directory)
         self.btn_choose_destination.clicked.connect(self.choose_destination_dir)
         self.btn_import_alembic.clicked.connect(self.import_asset_ue)
 
@@ -34,7 +35,7 @@ class ToolWindow(QMainWindow):
                                      self.check_save_after_every_import.isChecked(),
                                      self.check_replace_existing.isChecked())
 
-    def choose_file(self):
+    def choose_import_directory(self):
         # import_file_name = QFileDialog.getOpenFileName(self, "Open a file", "D://")
         import_file_directory = QFileDialog.getExistingDirectory(self, "QFileDialog.GetExistingDirectory()",
                                                                  QDir.homePath(),

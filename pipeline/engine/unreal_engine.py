@@ -6,7 +6,7 @@ try:
 except:
     unreal = None
 
-VALID_EXTENSIONS = (".png", ".tif", ".tiff", ".tga", ".jpg")
+VALID_EXTENSIONS = (".png", ".tif", ".tiff", ".tga", ".jpg", ".abc")
 SAVE_FREQUENCY = 5
 ASSET_TOOLS = unreal.AssetToolsHelpers.get_asset_tools()
 
@@ -54,6 +54,7 @@ class UnrealEngine(Engine):
                 task = unreal.AssetImportTask()
                 task.automated = True
                 task.filename = str(file_path_abs)
+                print(str(file_path_abs))
                 task.destination_path = f'{destination_path}/{tex_category}'
                 task.destination_name = tex_category + str(name_counter)
                 task.replace_existing = replace_existing
