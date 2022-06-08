@@ -34,6 +34,7 @@ class ToolWindow(QMainWindow):
                                      self.line_destination_path_display.text(), self.line_dcc_file_name.text(),
                                      self.check_save_after_every_import.isChecked(),
                                      self.check_replace_existing.isChecked())
+        # self.destroy()
 
     def choose_import_directory(self):
         # import_file_name = QFileDialog.getOpenFileName(self, "Open a file", "D://")
