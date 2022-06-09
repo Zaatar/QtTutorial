@@ -28,7 +28,8 @@ class MayaEngine(Engine):
 
     def alembic_export(self, start, end, root, save_name, scene_obj_name):
         final_save = self.export_path_generator(root, save_name, '.abc')
-        command = f'-frameRange {start} {end} -uvWrite -worldSpace -root {scene_obj_name} -file {final_save}'
+        command = f'-frameRange {start} {end} -uvWrite -writeFaceSets -worldSpace -writeUVSets -stripNamespaces' \
+                  f' -root {scene_obj_name} -file {final_save}'
         cmds.AbcExport(j=command)
 
     def get_selection(self):
