@@ -58,7 +58,7 @@ class UnrealEngine(Engine):
                     task.options.conversion_settings.rotation = [90.0, 0.0, 0.0]
 
                 task.filename = str(file_path_abs)
-                task.destination_path = f'{destination_path}/AbcImport'
+                task.destination_path = f'{destination_path}'
                 task.destination_name = dcc_save_name + str(name_counter)
                 task.replace_existing = replace_existing
                 task.save = save_after_every_import
