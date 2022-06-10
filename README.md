@@ -122,7 +122,7 @@ is a Python console with built in memory, meaning you
 can run one python command at a time, and the command
 is saved in the terminal's memory. In order to run
 an external python file in the terminal, you need
-to be on the **Python** termina. Afterwards, copying
+to be on the **Python** terminal. Afterwards, copying
 the path to your project and pressing enter runs
 the tool.
 
