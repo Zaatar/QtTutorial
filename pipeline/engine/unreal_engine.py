@@ -47,53 +47,19 @@ class UnrealEngine(Engine):
                     break
                 slow_task.enter_progress_frame(1)
 
-                file_name_parts = file_path_abs.stem.split("_")
-                file_name_start = file_name_parts[1]
-                only_letters = [ch for ch in file_name_start if ch.isalpha()]
-                tex_category = "".join(only_letters)
-                unreal.log(f'{save_counter}: {tex_category} {file_path_abs.suffix}')
-                '''
-                Initial implementation of importing regular assets
-                
                 task = unreal.AssetImportTask()
                 task.automated = True
-                task.filename = str(file_path_abs)
-                task.destination_path = f'{destination_path}/{tex_category}'
-                task.destination_name = tex_category + str(name_counter)
-                task.replace_existing = replace_existing
-                task.save = save_after_every_import
-                unreal.log(f'Importing {task.destination_name}')
-                ASSET_TOOLS.import_asset_tasks([task])
-                '''
+                if file_path_abs.suffix == ".abc":
+                    task.options = unreal.AbcImportSettings()
+                    task.options.import_type = unreal.AlembicImportType.GEOMETRY_CACHE
 
-                task = unreal.AssetImportTask()
-                task.automated = True
-                task.options = unreal.AbcImportSettings()
-                task.options.import_type = unreal.AlembicImportType.GEOMETRY_CACHE
+                    task.options.material_settings = unreal.AbcMaterialSettings(create_materials=False, find_materials=True)
+                    task.options.conversion_settings = unreal.AbcConversionSettings()
+                    task.options.conversion_settings.rotation = [90.0, 0.0, 0.0]
 
-                task.options.material_settings = unreal.AbcMaterialSettings(create_materials=False, find_materials=True)
-                task.options.conversion_settings = unreal.AbcConversionSettings()
-                task.options.conversion_settings.rotation = [90.0, 0.0, 0.0]
-                '''
-                Initial implementation of Alembic import
-                
-                task.set_editor_property('options', unreal.AbcImportSettings())
-                task.get_editor_property('options')\
-                    .set_editor_property('import_type', unreal.AlembicImportType.GEOMETRY_CACHE)
-
-                task.get_editor_property('options')\
-                    .set_editor_property('material_settings',
-                                         unreal.AbcMaterialSettings(create_materials=False, find_materials=True))
-
-                task.get_editor_property('options')\
-                    .set_editor_property('conversion_settings', unreal.AbcConversionSettings())
-                task.get_editor_property('options').get_editor_property('conversion_settings')\
-                    .set_editor_property('rotation', [90.0, 0.0, 0.0])
-                '''
                 task.filename = str(file_path_abs)
                 task.destination_path = f'{destination_path}/AbcImport'
-                task.destination_name = dcc_save_name
-                unreal.log(f'PRINT DCC SAVE NAME: {dcc_save_name}')
+                task.destination_name = dcc_save_name + str(name_counter)
                 task.replace_existing = replace_existing
                 task.save = save_after_every_import
                 unreal.log(f'Importing {task.destination_name}')
@@ -114,15 +80,6 @@ class UnrealEngine(Engine):
 
 
 '''
-import unreal
-task = unreal.AssetImportTask()
-task.filename = r'D:\Projet perso\Small Project\BlenderScriptWork\BlenderforUnrealEngineAddon\MyBlenderFiles\ExportedFbx\Alembic\Armature\SK_Armature.abc'
-task.destination_path = r'/Game/Temp'
-task.automated = True
-task.set_editor_property('options', unreal.AbcImportSettings())
-task.get_editor_property('options').set_editor_property('import_type', unreal.AlembicImportType.SKELETAL)
-unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
-asset = unreal.find_asset(task.imported_object_paths[0])
 
 https://forums.unrealengine.com/t/import-alembic-with-abcimportsettings-in-unreal-4-22-using-python/127546
 
