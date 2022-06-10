@@ -25,7 +25,6 @@ class ToolWindow(QMainWindow):
 
     def handle_inputs(self):
         self.btn_choose_file.clicked.connect(self.choose_import_directory)
-        self.btn_choose_destination.clicked.connect(self.choose_destination_dir)
         self.btn_import_alembic.clicked.connect(self.import_asset_ue)
 
     def import_asset_ue(self):
@@ -44,12 +43,6 @@ class ToolWindow(QMainWindow):
                                                                  QFileDialog.DontResolveSymlinks)
         if import_file_directory:
             self.line_import_directory_display.setText(import_file_directory)
-
-    def choose_destination_dir(self):
-        dir_name = QFileDialog.getExistingDirectory(self, "QFileDialog.GetExistingDirectory()", QDir.homePath(),
-                                                    QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
-        if dir_name:
-            self.line_destination_path_display.setText(dir_name)
 
 
 def import_launch_tool():
